@@ -1,0 +1,342 @@
+{% macro nav_bar(brand_name=none, menu=[], logo_url=none) -%}
+    <nav aria-label="Main Navigation">
+        <a href="/" class="nav-brand" aria-label="Go to homepage">
+            {% if logo_url %}
+                <img src="{{ logo_url }}" alt="{{ brand_name }}" />
+            {% elif brand_name %}
+                <strong>{{ brand_name }}</strong>
+            {% else %}
+                <span class="iconify" data-icon="lucide:component" aria-hidden="true"></span>
+            {% endif %}
+        </a>
+
+        <ul>
+            {% for item in menu %}
+                <li>
+                    <a href="{{ item.url }}" {% if item.active %}aria-current="page"{% endif %}>
+                        {{ item.text }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{%- endmacro %}
+
+{% macro breadcrumb(items) %}
+    <nav class="breadcrumb" aria-label="breadcrumb">
+        <ol>
+            {% for item in items %}
+                {% if loop.last %}
+                    <li><strong>{{ item.label }}</strong></li>
+                {% else %}
+                    <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+{% endmacro %}
+
+{% macro footer(year, company, links=[]) -%}
+    <footer>
+        <small>
+            &copy; {{ year }} {{ company }}. All rights reserved.
+            <a href="https://github.com/Ansel-S" rel="author" target="_blank">
+                Powered by Bairu Song <span class="iconify" data-icon="mdi:heart"></span>
+            </a>
+        </small>
+        <nav aria-label="Footer Social Links">
+            {% for link in links %}
+                <a href="{{ link.url }}" aria-label="{{ link.name }}" rel="noopener noreferrer" target="_blank">
+                    <span class="iconify" data-icon="{{ link.icon }}"></span>
+                </a>
+            {% endfor %}
+        </nav>
+    </footer>
+{%- endmacro %}
+
+{% macro drawer(title=none, menu=[], placement="left") -%}
+    {% set placement = placement if placement in ['left', 'right', 'top', 'bottom'] else 'left' %}
+    <dialog class="drawer" data-placement="{{ placement }}" onclick="event.target === this && this.close()">
+        <section>
+            <header>
+                {% if title %}<h3>{{ title }}</h3>{% endif %}
+                <form method="dialog">
+                    <button type="submit" aria-label="Close drawer">
+                        <span class="iconify" data-icon="lucide:x"></span>
+                    </button>
+                </form>
+            </header>
+            
+            <main>
+                {% if caller %}
+                    {{ caller() }}
+                {% elif menu %}
+                    <ul>
+                        {% for item in menu %}
+                            <li>
+                                <a href="{{ item.url }}" {% if item.active %}aria-current="page"{% endif %}>
+                                    {% if item.icon %}<span class="iconify" data-icon="{{ item.icon }}"></span>{% endif %}
+                                    <span>{{ item.text }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No content provided.</p>
+                {% endif %}
+            </main>
+        </section>
+    </dialog>
+{%- endmacro %}
+
+{% macro modal(id, title=none, subtitle=none, content=none, size="medium") -%}
+    {% set size = size if size in ['small', 'medium', 'large'] else 'medium' %}
+    <dialog id="{{ id }}" class="modal" onclick="event.target === this && this.close()">
+        <article>
+            <header>
+                <hgroup>
+                    {% if title %}<h3>{{ title }}</h3>{% endif %}
+                    {% if subtitle %}<p>{{ subtitle }}</p>{% endif %}
+                </hgroup>
+                <form method="dialog">
+                    <button type="submit" aria-label="Close modal">
+                        <span class="iconify" data-icon="lucide:x"></span>
+                    </button>
+                </form>
+            </header>
+            
+            <main>
+                {% if caller %}
+                    {{ caller() }}
+                {% elif content %}
+                    {{ content }}
+                {% else %}
+                    <p>No content provided.</p>
+                {% endif %}
+            </main>
+        </article>
+    </dialog>
+{%- endmacro %}
+
+{% macro accordion(name=none, items) -%}
+    <section class="accordion">
+        {% for item in items %}
+            <details {{ 'name=' + name if name }} {{ 'open' if item.open }}>
+                <summary>
+                    {{ item.title }}
+                    <span class="iconify" data-icon="lucide:chevron-down" aria-hidden="true"></span>
+                </summary>
+                <p>{{ item.content | safe }}</p>
+            </details>
+        {% endfor %}
+    </section>
+{%- endmacro %}
+
+{% macro card(title, text, link=none, tags=None, image=none) %}
+    <article class="card">
+        {% if image %}
+            <img src="{{ image }}" alt="{{ title }}" loading="lazy" decoding="async" />
+        {% endif %}
+
+        <section>
+            <hgroup>
+                <h3>{{ title }}</h3>
+                {% if link %}<span class="iconify" data-icon="lucide:arrow-up-right" aria-hidden="true"></span>{% endif %}
+            </hgroup>
+
+            <p>{{ text }}</p>
+
+            {% if tags %}
+                <footer class="tags">
+                    {% for tag in tags %}{{ badge(tag) }}{% endfor %}
+                </footer>
+            {% endif %}
+        </section>
+        {% if link %}
+            <a href="{{ link }}" class="stretched-link" aria-label="Read more about {{ title }}"></a>
+        {% endif %}
+    </article>
+{% endmacro %}
+
+{% macro table(headers, rows, caption=none, footer=none, type="default", responsive=true) -%}
+    <figure class="table-container" data-type="{{ type }}" tabindex="0" {% if responsive %}data-responsive{% endif %}>
+        <table>
+            {% if caption %}
+                <caption>{{ caption }}</caption>
+            {% endif %}
+            {% if headers %}
+                <thead>
+                    <tr>
+                        {% for header in headers %}
+                            <th scope="col">{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+            {% endif %}
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        {% for cell in row %}
+                            {% if loop.first %}
+                                <th scope="row">{{ cell }}</th>
+                            {% else %}
+                                <td>{{ cell }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+            {% if footer %}
+                <tfoot>
+                    <tr>
+                        {% for item in footer %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                </tfoot>
+            {% endif %}
+        </table>
+    </figure>
+{%- endmacro %}
+
+{% macro code(code, lang="text", name=none) -%}
+    <figure class="code" data-lang="{{ lang }}">
+        {% if name %}<figcaption>{{ name }}</figcaption>{% endif %}
+        
+        <div>
+            <button aria-label="Copy code" onclick="copyToClipboard(this)">
+                <span class="iconify" data-icon="lucide:copy"></span>
+            </button>
+            <pre><code class="language-{{ lang }}" spellcheck="false">{{ code | e }}</code></pre>
+        </div>
+    </figure>
+{%- endmacro %}
+
+{% macro search_bar(
+    action="/search", 
+    placeholder="Search...", 
+    aria_label="Search Site Textbox", 
+    maxlength=64
+) -%}
+    {% set maxlength = maxlength|int if maxlength|int in [32, 64, 128] else 64 %}
+    <search>
+        <form action="{{ action }}" method="get">
+            <input 
+                type="search" 
+                name="q" 
+                placeholder="{{ placeholder }}" 
+                aria-label="{{ aria_label }}" 
+                required 
+                enterkeyhint="search" 
+                autocomplete="off"
+                spellcheck="false"
+                autocorrect="off"
+                autocapitalize="none"
+                maxlength="{{ maxlength }}"
+            >
+            <button type="submit" aria-label="Search Button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </form>
+    </search>
+{%- endmacro %}
+
+{% macro toggle_switch(name, checked=false, disabled=false, id=none) -%}
+    {% set id = id or "toggle-" + name %}
+    <label class="toggle-switch" for="{{ id }}">
+        <input 
+            type="checkbox" 
+            role="switch" 
+            id="{{ id }}" 
+            name="{{ name }}"
+            {{ 'checked' if checked }}
+            {{ 'disabled' if disabled }}
+            aria-checked="{{ 'true' if checked else 'false' }}"
+            onchange="this.setAttribute('aria-checked', this.checked)"
+        >
+        <span aria-hidden="true"></span>
+    </label>
+{%- endmacro %}
+
+{% macro segmented_control(legend, segments, selected=none) -%}
+    {% set name = legend | lower | replace(' ', '_') %}
+    {% set id_base = name | replace('_', '-') %}
+    <fieldset class="segmented-control" aria-labelledby="{{ id_base }}-legend">
+        <legend class="sr-only" id="{{ id_base }}-legend">{{ legend }}</legend>
+        
+        {% for segment in segments %}
+            <label>
+                <input 
+                    type="radio" 
+                    name="{{ name }}" 
+                    value="{{ segment }}" 
+                    {{ 'checked' if (selected == segment or (not selected and loop.first)) }}
+                >
+                <span>{{ segment | replace('_', ' ') | title }}</span>
+            </label>
+        {% endfor %}
+        
+        <span aria-hidden="true"></span>
+    </fieldset>
+{%- endmacro %}
+
+{% macro progress(v, type='line', color='#3b82f6', s=10) %}
+    {% if type == 'line' %}
+        <svg width="100%" height="{{ s }}" viewBox="0 0 100 {{ s }}" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="{{ s }}" fill="#eee" rx="{{ s/2 }}" />
+            <rect width="{{ v }}" height="{{ s }}" fill="{{ color }}" rx="{{ s/2 }}" style="transition:0.4s" />
+        </svg>
+
+    {% elif type == 'circle' %}
+        <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#eee" stroke-width="10" />
+            <circle cx="50" cy="50" r="45" fill="none" stroke="{{ color }}" stroke-width="10"
+                stroke-dasharray="283" stroke-dashoffset="{{ 283 - (v/100) * 283 }}"
+                stroke-linecap="round" transform="rotate(-90 50 50)" style="transition:0.4s" />
+        </svg>
+
+    {% elif type == 'dashboard' %}
+        <svg width="{{ s }}" height="{{ s/2 }}" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#eee" stroke-width="10" stroke-linecap="round" />
+            <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="{{ color }}" stroke-width="10" 
+                stroke-dasharray="126" stroke-dashoffset="{{ 126 - (v/100) * 126 }}"
+                stroke-linecap="round" style="transition:0.4s" />
+        </svg>
+    {% endif %}
+{% endmacro %}
+
+{% macro badge(text, icon=none) %}
+    <span>
+        {% if icon %}
+            <span class="iconify" data-icon="{{ icon }}" aria-hidden="true"></span>
+        {% endif %}
+        {{ text }}
+    </span>
+{% endmacro %}
+
+{% macro banner(message, type="info", link=none, link_text="Learn More", closable=true) -%}
+    {# type: "info", "success", "warning", "error" #}
+    <aside class="banner" data-type="{{ type }}" role="status" aria-live="polite">
+        <span>{{ message }}</span>
+        {% if link %}
+            <a href="{{ link }}">
+                {{ link_text }}
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        {% endif %}
+
+        {% if closable %}
+            <button type="button" aria-label="Dismiss" onclick="this.parentElement.remove()">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        {% endif %}
+    </aside>
+{%- endmacro %}
