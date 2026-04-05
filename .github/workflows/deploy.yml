@@ -1,0 +1,43 @@
+name: Build and Deploy to Release Branch
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build and Prepare
+        run: |
+          npm run build
+          
+          cp -r assets dist/
+          cp -r templates dist/
+          
+          ls -R dist/
+
+      - name: Deploy to Release Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: release
+          folder: dist
+          clean: true
+          single-commit: false

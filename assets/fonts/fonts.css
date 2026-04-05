@@ -1,7 +1,7 @@
 /* --- Geist (Variable) --- */
 @font-face {
     font-family: 'Geist';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/Geist-Variable.woff2') format('woff2-variations');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/Geist-Variable.woff2') format('woff2-variations');
     font-weight: 400 600;
     font-style: normal;
     font-display: swap;
@@ -10,7 +10,7 @@
 /* --- Geist Mono (Variable) --- */
 @font-face {
     font-family: 'Geist Mono';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/GeistMono-Variable.woff2') format('woff2-variations');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/GeistMono-Variable.woff2') format('woff2-variations');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -19,7 +19,7 @@
 /* --- Lora (Variable) --- */
 @font-face {
     font-family: 'Lora';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/Lora-Variable.woff2') format('woff2-variations');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/Lora-Variable.woff2') format('woff2-variations');
     font-weight: 400 600;
     font-style: normal;
     font-display: swap;
@@ -27,7 +27,7 @@
 
 @font-face {
     font-family: 'Lora';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/Lora-Italic-Variable.woff2') format('woff2-variations');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/Lora-Italic-Variable.woff2') format('woff2-variations');
     font-weight: 400 600;
     font-style: italic;
     font-display: swap;
@@ -36,7 +36,7 @@
 /* --- Caveat (Variable) --- */
 @font-face {
     font-family: 'Caveat';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/Caveat-Variable.woff2') format('woff2-variations');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/Caveat-Variable.woff2') format('woff2-variations');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -45,7 +45,7 @@
 /* --- Playfair Display (Variable) --- */
 @font-face {
     font-family: 'Playfair Display';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/PlayfairDisplay-Italic-Variable.woff2') format('woff2-variations');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/PlayfairDisplay-Italic-Variable.woff2') format('woff2-variations');
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -54,7 +54,7 @@
 /* --- 霞鹜文楷 LXGW (Static) --- */
 @font-face {
     font-family: 'LXGW WenKai';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/LXGW-Regular.woff2') format('woff2');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/LXGW-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -63,7 +63,7 @@
 /* --- OPPO Sans (Static) --- */
 @font-face {
     font-family: 'OPPO Sans';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-ui@main/fonts/OPPOSans-4.0.woff2') format('woff2');
+    src: url('https://cdn.jsdelivr.net/gh/asong56/atlas-cdn@release/assets/fonts/OPPOSans-4.0.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;

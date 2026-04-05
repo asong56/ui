@@ -212,29 +212,6 @@
     </figure>
 {%- endmacro %}
 
-{% macro timeline(items, direction='vertical', layout='alternate') %}
-    <section data-direction="{{ direction }}" data-layout="{{ layout }}">
-        {% for item in items %}
-            {% if layout == 'alternate' %}
-                {% if direction == 'vertical' %}
-                    {% set pos = loop.cycle('left', 'right') %}
-                {% else %}
-                    {% set pos = loop.cycle('top', 'bottom') %}
-                {% endif %}
-            {% else %}
-                {% set pos = layout %}
-            {% endif %}
-
-            <article data-position="{{ pos }}">
-                <h3>{{ item.title }}</h3>
-                <section>
-                    <p>{{ item.desc }}</p>
-                </section>
-            </article>
-        {% endfor %}
-    </section>
-{% endmacro %}
-
 {% macro search_bar(
     action="/search", 
     placeholder="Search...", 

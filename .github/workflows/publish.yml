@@ -7,7 +7,7 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
 
 jobs:
   publish:
@@ -25,8 +25,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build SCSS to CSS
+      - name: Build Project
         run: npm run build
 
+      - name: Prepare NPM Payload
+        run: |
+          mkdir deploy_npm
+          cp -r dist/ deploy_npm/
+          cp -r src/ deploy_npm/
+          cp package.json deploy_npm/
+
+      - name: Sync to npm Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: npm
+          folder: deploy_npm
+          clean: false
+          single-commit: false
+
       - name: Publish to npm
-        run: npm publish --access public
+        run: |
+          cd deploy_npm
+          npm publish --access public --provenance
