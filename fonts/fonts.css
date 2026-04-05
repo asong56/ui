@@ -1,0 +1,70 @@
+/* --- Geist (Variable) --- */
+@font-face {
+    font-family: 'Geist';
+    src: url('./Geist-Variable.woff2') format('woff2-variations');
+    font-weight: 400 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Geist Mono (Variable) --- */
+@font-face {
+    font-family: 'Geist Mono';
+    src: url('./GeistMono-Variable.woff2') format('woff2-variations');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Lora (Variable) --- */
+@font-face {
+    font-family: 'Lora';
+    src: url('./Lora-Variable.woff2') format('woff2-variations');
+    font-weight: 400 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('./Lora-Italic-Variable.woff2') format('woff2-variations');
+    font-weight: 400 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* --- Caveat (Variable) --- */
+@font-face {
+    font-family: 'Caveat';
+    src: url('./Caveat-Variable.woff2') format('woff2-variations');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Playfair Display (Variable) --- */
+@font-face {
+    font-family: 'Playfair Display';
+    src: url('./PlayfairDisplay-Italic-Variable.woff2') format('woff2-variations');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* --- 霞鹜文楷 LXGW (Static) --- */
+@font-face {
+    font-family: 'LXGW WenKai';
+    src: url('./LXGW-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- OPPO Sans (Static) --- */
+@font-face {
+    font-family: 'OPPO Sans';
+    src: url('./OPPOSans-4.0.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
