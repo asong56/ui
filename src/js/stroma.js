@@ -1,3 +1,13 @@
+/*!
+ * Stroma.js v1.1.0
+ * Lightweight, framework-agnostic SEO meta tag generator.
+ *
+ * Named after biological stroma — the supportive matrix inside cells.
+ * Stroma.js is the scaffolding that binds a single config object into
+ * every signal search engines and social platforms need to read your page.
+ *
+ * < 2KB gzipped | No dependencies | Framework-agnostic | SPA & SSR ready
+ */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined'
     ? module.exports = factory()
@@ -230,7 +240,6 @@
   }
 
   // ─── Tag Descriptor List ───────────────────────────────────────────────────
-  // A single source of truth consumed by both the DOM writer and the SSR renderer.
 
   function describeTags(cfg) {
     var t = [];
@@ -362,90 +371,37 @@
      * @returns {Stroma}
      */
     init: function (options) {
-      if (typeof document === 'undefined') return this; // SSR guard — use renderToString()
+      if (typeof document === 'undefined') return this;
       cleanup();
       var cfg = resolveConfig(options || {});
       applyTags(cfg);
       this._current = cfg;
       return this;
     },
-
-    /**
-     * Shallow-merge a patch onto the current config and re-apply all tags.
-     * Ideal for SPA route changes where only a few fields need to change.
-     *
-     * @param {Object} patch
-     * @returns {Stroma}
-     */
+    
     update: function (patch) {
       return this.init(Object.assign({}, this._current || {}, patch));
     },
-
-    /**
-     * Remove all Stroma-injected tags from <head>.
-     * @returns {Stroma}
-     */
+    
     reset: function () {
       if (typeof document !== 'undefined') cleanup();
       this._current = null;
       return this;
     },
-
-    /**
-     * Returns a snapshot of the last resolved config.
-     * @returns {Object}
-     */
+    
     getConfig: function () {
       return Object.assign({}, this._current);
     },
-
-    /**
-     * Server-Side Rendering support.
-     * Returns an HTML string of all tags — no DOM, no side-effects.
-     * Paste the result directly into your server-rendered <head>.
-     *
-     * Works in Node.js, Deno, Cloudflare Workers, and any non-browser runtime.
-     *
-     * @example (Next.js App Router)
-     *   // In generateMetadata() or a layout, or if you need raw HTML:
-     *   const html = Stroma.renderToString({ title: 'My Page', description: '...' });
-     *   // inject via dangerouslySetInnerHTML={{ __html: html }} inside a <head> component
-     *
-     * @example (Node.js / Express)
-     *   const headHtml = Stroma.renderToString({ title: req.pageTitle, ... });
-     *   res.send(`<html><head>${headHtml}</head><body>...</body></html>`);
-     *
-     * @param {Object} options  Same fields as init().
-     * @returns {string}        Raw HTML string ready to inject inside <head>.
-     */
+    
     renderToString: function (options) {
       return renderTags(resolveConfig(options || {}));
     },
-
-    /**
-     * Inject a standalone BreadcrumbList JSON-LD block (client-side only).
-     * For SSR, include breadcrumb via renderToString({ schema: 'breadcrumb', breadcrumb: [...] }).
-     *
-     * @param {Array<{name: string, url: string}>} items
-     * @returns {Stroma}
-     */
+    
     breadcrumb: function (items) {
       if (typeof document !== 'undefined') setJsonLd(buildBreadcrumbSchema(items));
       return this;
     },
-
-    /**
-     * Read or update module-level defaults.
-     * Changes apply to all subsequent init() and renderToString() calls
-     * unless overridden in the individual options object.
-     *
-     * @example
-     *   Stroma.defaults({ maxTitleLength: 70, robots: 'noindex, nofollow' });
-     *   Stroma.defaults(); // → { maxTitleLength: 70, robots: 'noindex, nofollow', ... }
-     *
-     * @param {Object} [patch]
-     * @returns {Object|Stroma}  Returns current defaults when called with no args; Stroma otherwise.
-     */
+    
     defaults: function (patch) {
       if (!patch) return Object.assign({}, DEFAULTS);
       Object.assign(DEFAULTS, patch);
