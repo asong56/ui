@@ -1,9 +1,8 @@
-name: Publish to npm
+name: Publish → npm
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
 
 permissions:
   id-token: write
@@ -13,37 +12,30 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
+      - run: bun install
+      - run: bun run build
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Project
-        run: npm run build
-
-      - name: Prepare NPM Payload
+      - name: Assemble npm payload
         run: |
-          mkdir deploy_npm
-          cp -r dist/ deploy_npm/
-          cp -r src/ deploy_npm/
-          cp package.json deploy_npm/
+          mkdir -p deploy_npm/static
+          cp -r static/css deploy_npm/static/
+          cp -r src         deploy_npm/
+          cp package.json README.md LICENSE deploy_npm/
 
-      - name: Sync to npm Branch
-        uses: JamesIves/github-pages-deploy-action@v4
+      - uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: npm
           folder: deploy_npm
           clean: false
           single-commit: false
 
-      - name: Publish to npm
-        run: |
-          cd deploy_npm
-          npm publish --access public --provenance
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - run: cd deploy_npm && npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
