@@ -1,16 +1,16 @@
-/* --- Geist (Variable) --- */
+/* --- Switzer (Variable) --- */
 @font-face {
-    font-family: 'Geist';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/Geist-Variable.woff2') format('woff2-variations');
+    font-family: 'Switzer';
+    src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/Switzer-Var.woff2') format('woff2-variations');
     font-weight: 400 600;
     font-style: normal;
     font-display: swap;
 }
 
-/* --- Geist Mono (Variable) --- */
+/* --- Monaspace Neon (Variable) --- */
 @font-face {
-    font-family: 'Geist Mono';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/GeistMono-Variable.woff2') format('woff2-variations');
+    font-family: 'Monaspace';
+    src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/Mona-Neon-Var.woff2') format('woff2-variations');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -30,33 +30,6 @@
     src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/Lora-Italic-Variable.woff2') format('woff2-variations');
     font-weight: 400 600;
     font-style: italic;
-    font-display: swap;
-}
-
-/* --- Caveat (Variable) --- */
-@font-face {
-    font-family: 'Caveat';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/Caveat-Variable.woff2') format('woff2-variations');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-/* --- Playfair Display (Variable) --- */
-@font-face {
-    font-family: 'Playfair Display';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/PlayfairDisplay-Italic-Variable.woff2') format('woff2-variations');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-}
-
-/* --- 霞鹜文楷 LXGW (Static) --- */
-@font-face {
-    font-family: 'LXGW WenKai';
-    src: url('https://cdn.jsdelivr.net/gh/asong56/acdn@release/assets/fonts/LXGW-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
     font-display: swap;
 }
 
